@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurent index{% endblock %}
+
+{% block body %}
+    <h1>Restaurent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Telephone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurent in restaurents %}
+            <tr>
+                <td>{{ restaurent.id }}</td>
+                <td>{{ restaurent.nom }}</td>
+                <td>{{ restaurent.adresse }}</td>
+                <td>{{ restaurent.telephone }}</td>
+                <td>
+                    <a href="{{ path('restaurent_show', {'id': restaurent.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('restaurent_new', {'id': app.user.id}) }}">Créer un restaurant</a>
+    {% endif %}
+    
+    
+{% endblock %}

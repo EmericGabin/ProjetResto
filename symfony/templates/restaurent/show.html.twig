@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurent{% endblock %}
+
+{% block body %}
+    <h1>Restaurent</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ restaurent.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ restaurent.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ restaurent.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ restaurent.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Commander chez {{restaurent.nom}}</th>
+                <td><a href="{{ path('commande_index', {'id': restaurent.id}) }}">Go</a></td>
+            </tr>
+            <tr>
+                <th>Restaurateurs</th>
+                {% for restaurateur in restaurent.getUsers %}
+                    <td>{{ restaurateur.email }}</td>
+                {% endfor %}
+                
+            </tr>
+            <tr>
+                <th>Produits disponibles du restaurant</th>
+                <td><a href="{{ path('produit_index', {'id': restaurent.id}) }}">Listes des produits</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('restaurent_index') }}">back to list</a>
+
+    {% for restaurateur in restaurent.getUsers %}
+        {% if is_granted('ROLE_ADMIN') and restaurateur.id == app.user.id %}
+            <a href="{{ path('restaurent_edit', {'id': restaurent.id ,'idUser': restaurateur.id}) }}">edit</a>
+            <a href="{{ path('produit_new_restaurent', {'id': restaurent.id}) }}">Ajouter un produit</a>
+        {% endif %}
+    {% endfor %}
+    
+    
+
+    {{ include('restaurent/_delete_form.html.twig') }}
+{% endblock %}

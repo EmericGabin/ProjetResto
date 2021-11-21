@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <h1>Produit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ produit.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ produit.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ produit.description }}</td>
+            </tr>
+            <tr>
+                <th>resto ID</th>
+                <td>{{ produit.restaurent.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('produit_index', {'id': produit.restaurent.id}) }}">back</a> 
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('produit/_delete_form.html.twig') }}
+    {% endif %}
+    
+    
+{% endblock %}

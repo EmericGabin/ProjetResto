@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if app.user %}
+            <tr>
+                <td>{{ app.user.id }}</td>
+                <td>{{ app.user.email }}</td>
+                <td>{{ app.user.roles ? app.user.roles|json_encode : '' }}</td>
+                <td>{{ app.user.prenom }}</td>
+                <td>{{ app.user.nom }}</td>
+                <td>
+                    <a href="{{ path('user_show', {'id': app.user.id}) }}">show</a>
+                    <a href="{{ path('user_edit', {'id': app.user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.nom }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_new') }}">Create new</a>
+    <br/>
+    {% if app.user %}
+        <a href="{{ path('user_logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ path('user_login') }}">Login</a>
+    {% endif %}
+    <br/>
+    <a href="{{ path('restaurent_index')}}">Voir les restaurants</a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <br/>
+        <a href="{{ path('restaurent_new' , {'id': app.user.id}) }}">Create restaurant</a>
+    {% endif %}
+    
+{% endblock %}

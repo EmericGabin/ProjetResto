@@ -7,5 +7,11 @@
 
     {{ include('commande/_form.html.twig') }}
 
+    {# {{ form_start(form) }}
+        {{ form_row(form.restaurent) }}
+        {{ form_row(form.produits) }}
+        {{ form_row(form.user, { 'attr': {'class': 'd-none'} }) }}
+    {{ form_end(form) }} #}
+
     {# <a href="{{ path('commande_index') }}">back to list</a> #}
 {% endblock %}

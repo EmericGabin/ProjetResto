@@ -10,24 +10,23 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211121124734 extends AbstractMigration
+final class Version20220102140034 extends AbstractMigration
 {
     public function getDescription(): string
     {
         return '';
     }
 
-    /* public function up(Schema $schema): void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE commande_produit DROP quantite');
-    } */
+        $this->addSql('ALTER TABLE commande_produit ADD prix_total DOUBLE PRECISION NOT NULL ');
+        $this->addSql('ALTER TABLE commande DROP prix_total');
+    }
 
-    public function up(Schema $schema): void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE commande_produit ADD quantite INT NOT NULL');
-        $this->addSql('ALTER TABLE commande_produit ADD prix_total DOUBLE PRECISION NOT NULL');
-        $this->addSql('ALTER TABLE commande DROP prix_total');
     }
 }

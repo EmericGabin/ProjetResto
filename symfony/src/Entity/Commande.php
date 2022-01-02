@@ -20,11 +20,6 @@ class Commande
     private $id;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $prixTotal;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Restaurent::class, inversedBy="commandes")
      * @ORM\JoinColumn(nullable=false)
      */

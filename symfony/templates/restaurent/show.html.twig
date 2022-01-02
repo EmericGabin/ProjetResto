@@ -24,10 +24,6 @@
                 <td>{{ restaurent.telephone }}</td>
             </tr>
             <tr>
-                <th>Commander chez {{restaurent.nom}}</th>
-                <td><a href="{{ path('commande_index', {'id': restaurent.id}) }}">Go</a></td>
-            </tr>
-            <tr>
                 <th>Restaurateurs</th>
                 {% for restaurateur in restaurent.getUsers %}
                     <td>{{ restaurateur.email }}</td>

@@ -11,22 +11,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
-    #[Route('/restaurent/{id}', name: 'commande_index', methods: ['GET'])]
-    public function index(CommandeRepository $commandeRepository, Restaurent $restaurent): Response
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
+    #[Route('/', name: 'commande_index', methods: ['GET'])]
+    public function index(CommandeRepository $commandeRepository): Response
     {
         return $this->render('commande/index.html.twig', [
             'commandes' => $commandeRepository->findAll(),
-            'restaurent' => $restaurent
         ]);
     }
 
     #[Route('/new/restaurent/{id}', name: 'commande_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Restaurent $restaurent): Response
     {
+        $session = $this->requestStack->getSession();
+        $panier = $session->get("panier", []);
+        $panier[$id] = 1;
+        $session->set("panier", $panier);
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande, [
             'restaurent' => $restaurent
@@ -57,7 +68,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'commande_edit', methods: ['GET', 'POST'])]
+    #[Route('edit/{id}', name: 'commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CommandeType::class, $commande);
@@ -75,7 +86,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'commande_delete', methods: ['POST'])]
+    #[Route('delete/{id}', name: 'commande_delete', methods: ['POST'])]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {

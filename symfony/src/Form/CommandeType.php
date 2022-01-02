@@ -12,12 +12,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Security\Core\Security;
 
 class CommandeType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $restaurent = $options['restaurent'];
+        $user = $this->security->getUser();
         $builder
             //->add('prixTotal')
             ->add('restaurent', EntityType::class,[
@@ -32,8 +41,12 @@ class CommandeType extends AbstractType
             ->add('user', EntityType::class,[
                 'class' => User::class,
                 'choice_label' => 'prenom',
-                'multiple'     => true,
                 'required' => true,
+                'query_builder' => function (EntityRepository $er) use($user){
+                    return $er->createQueryBuilder('u')
+                    ->where('u.id LIKE :userId')
+                    ->setParameter(':userId', $user->getId());    
+                }, 
             ])
             ->add('produits', EntityType::class,[
                 'class' => Produit::class,

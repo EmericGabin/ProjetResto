@@ -30,7 +30,6 @@ class ProduitController extends AbstractController
     #[Route('/new/restaurent/{id}', name: 'produit_new_restaurent', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Restaurent $restaurent): Response
     {
-        dump($restaurent);
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit, [
             'restaurent' => $restaurent
@@ -45,7 +44,7 @@ class ProduitController extends AbstractController
         }
 
         return $this->renderForm('produit/new.html.twig', [
-            'produit' => $produit,
+            'restaurent' => $restaurent,
             'form' => $form,
         ]);
     }

@@ -21,19 +21,19 @@
             {% for element in dataPanier %}
                 <tr>
                     <td>{{ element.produit.nom }}</td>
-                    <td class="text-right">{{ element.produit.prix }} €</td>
+                    <td>{{ element.produit.prix }} €</td>
                     <td>{{ element.quantite }}</td>
-                    <td class="text-right">{{ element.quantite * element.produit.prix }} €</td>
+                    <td>{{ element.quantite * element.produit.prix }} €</td>
                     <td>
                         <a href="{{path("panier_add", {id: element.produit.id})}}"
                         class="btn btn-success">
                             +
                         </a>
-                        <a href="{{path("panier_add", {id: element.produit.id})}}"
+                        <a href="{{path("panier_remove", {id: element.produit.id})}}"
                         class="btn btn-warning">
                             -
                         </a>
-                        <a href="{{path("panier_add", {id: element.produit.id})}}"
+                        <a href="{{path("panier_delete", {id: element.produit.id})}}"
                         class="btn btn-danger">
                             *
                         </a>
@@ -45,5 +45,17 @@
                 </tr>
             {% endfor %}
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>{{ total }} €</td>
+                <td>
+                    <a href=""
+                        class="btn btn-primary">
+                            Commander
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 {% endblock %}

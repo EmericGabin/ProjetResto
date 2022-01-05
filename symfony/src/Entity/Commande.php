@@ -36,6 +36,11 @@ class Commande
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $prix;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -102,6 +107,18 @@ class Commande
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }

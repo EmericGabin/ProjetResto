@@ -14,7 +14,6 @@ class RestaurentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->id = $options['id'];
         $role="ROLE_ADMIN";
         $builder
             ->add('nom')
@@ -38,7 +37,6 @@ class RestaurentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Restaurent::class,
-            'id' => null,
         ]);
     }
 }

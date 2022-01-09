@@ -33,6 +33,5 @@ final class Version20211119135518 extends AbstractMigration
         $this->addSql('DROP TABLE user');
         $this->addSql('DROP INDEX IDX_6EEAA67DA76ED395 ON commande');
         $this->addSql('ALTER TABLE commande DROP user_id');
-        $this->addSql('ALTER TABLE commande_produit ADD quantite INT NOT NULL');
     }
 }

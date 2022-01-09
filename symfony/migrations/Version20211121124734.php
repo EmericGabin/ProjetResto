@@ -26,8 +26,6 @@ final class Version20211121124734 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE commande_produit ADD quantite INT NOT NULL');
-        $this->addSql('ALTER TABLE commande_produit ADD prix_total DOUBLE PRECISION NOT NULL');
         $this->addSql('ALTER TABLE commande DROP prix_total');
     }
 }

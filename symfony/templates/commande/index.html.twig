@@ -17,7 +17,7 @@
         {% for commande in commandes %}
             <tr>
                 <td>{{ commande.id }}</td>
-                <td>{{ restaurent.nom }}</td>
+                <td>{{ commande.restaurent.nom }}</td>
                 <td>
                     <a href="{{ path('commande_show', {'id': commande.id}) }}">show</a>
                     <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
@@ -30,6 +30,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('commande_new', {'id': restaurent.id}) }}">Create new</a>
 {% endblock %}

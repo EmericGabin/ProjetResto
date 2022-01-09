@@ -50,12 +50,13 @@
                 <td colspan="3">Total</td>
                 <td>{{ total }} €</td>
                 <td>
-                    <a href=""
+                    <a href="{{path("commande_new")}}"
                         class="btn btn-primary">
                             Commander
                     </a>
                 </td>
             </tr>
         </tfoot>
+        {{ dump() }}
     </table>
 {% endblock %}

@@ -22,14 +22,11 @@ class RestaurentController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{id}', name: 'restaurent_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'restaurent_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $id=$request->get('id');
-        $id=(int)$id; 
-        dump($id);
         $restaurent = new Restaurent();
-        $form = $this->createForm(RestaurentType::class, $restaurent, ['id' => $id]);
+        $form = $this->createForm(RestaurentType::class, $restaurent);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,7 +40,6 @@ class RestaurentController extends AbstractController
         return $this->renderForm('restaurent/new.html.twig', [
             'restaurent' => $restaurent,
             'form' => $form,
-            'id' => $id,
         ]);
     }
 

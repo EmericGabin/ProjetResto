@@ -20,6 +20,5 @@ final class Version20211119125605 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE commande_produit ADD quantite INT NOT NULL');
     }
 }

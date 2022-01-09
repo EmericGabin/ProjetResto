@@ -25,10 +25,6 @@ class Commande
      */
     private $restaurent;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="commandes")
-     */
-    private $produits;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commandes")
@@ -41,26 +37,21 @@ class Commande
      */
     private $prix;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LigneCommande::class, mappedBy="commande")
+     */
+    private $ligneCommandes;
+
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+        $this->ligneCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPrixTotal(): ?float
-    {
-        return $this->prixTotal;
-    }
-
-    public function setPrixTotal(float $prixTotal): self
-    {
-        $this->prixTotal = $prixTotal;
-
-        return $this;
     }
 
     public function getRestaurent(): ?Restaurent
@@ -71,30 +62,6 @@ class Commande
     public function setRestaurent(?Restaurent $restaurent): self
     {
         $this->restaurent = $restaurent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduits(): Collection
-    {
-        return $this->produits;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        $this->produits->removeElement($produit);
 
         return $this;
     }
@@ -119,6 +86,36 @@ class Commande
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LigneCommande[]
+     */
+    public function getLigneCommandes(): Collection
+    {
+        return $this->ligneCommandes;
+    }
+
+    public function addLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes[] = $ligneCommande;
+            $ligneCommande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if ($this->ligneCommandes->removeElement($ligneCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($ligneCommande->getCommande() === $this) {
+                $ligneCommande->setCommande(null);
+            }
+        }
 
         return $this;
     }

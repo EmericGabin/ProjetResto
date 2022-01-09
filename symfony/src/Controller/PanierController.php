@@ -16,6 +16,7 @@ class PanierController extends AbstractController
     #[Route('/', name: 'panier_index')]
     public function index(SessionInterface $session, ProduitRepository $produitRepository)
     {
+        $produit = new Produit();
         $panier = $session->get("panier", []);
 
         // On "fabrique" les données
@@ -30,7 +31,7 @@ class PanierController extends AbstractController
             ];
             $total += $product->getPrix() * $quantite;
         }
-
+        
         return $this->render('panier/index.html.twig', compact("dataPanier", "total"));
     }
 

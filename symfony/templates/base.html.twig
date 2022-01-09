@@ -10,7 +10,6 @@
 		           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
-
 		{% endblock %}
 
 		{% block javascripts %}
@@ -29,16 +28,16 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('commande_index')}}">Commande</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('panier_index')}}">Panier</a>
+							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									Restaurant
 								</a>
-								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 									<li>
 										<a class="dropdown-item" href="{{ path('restaurent_index')}}">List</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('restaurent_new')}}">Create</a>
 									</li>
 								</ul>
 							</li>
@@ -47,6 +46,7 @@
 				</div>
 			</nav>
 		{% endblock %}
+
 		{% block body %}{% endblock %}
 	</body>
 </html>

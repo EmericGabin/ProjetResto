@@ -30,12 +30,12 @@
         </tbody>
     </table>
 
-    <a href="{{ path('produit_index', {'id': produit.restaurent.id}) }}">back</a> 
+    <a class="btn btn-primary" href="{{ path('produit_index', {'id': produit.restaurent.id}) }}">back</a> 
     {% if is_granted('ROLE_ADMIN') %}
         {{ include('produit/_delete_form.html.twig') }}
     {% endif %}
     {% if app.user %}
-        <a href="{{ path('panier_add', {'id': produit.id}) }}">add to cart</a>
+        <a class="btn btn-success" href="{{ path('panier_add', {'id': produit.id}) }}">add to cart</a>
     {% endif %}
     
     

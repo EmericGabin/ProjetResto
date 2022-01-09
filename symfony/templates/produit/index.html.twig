@@ -26,12 +26,12 @@
                     <td>{{ produit.description }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>
-                            <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                            <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+                            <a class="btn btn-info" href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
+                            <a class="btn btn-primary" href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
                         </td>
                     {% else %}
                         <td>
-                            <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
+                            <a class="btn btn-info" href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
                             
                         </td>
                     {% endif %}
@@ -40,5 +40,5 @@
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('restaurent_show', {'id': restaurent.id}) }}">back to restaurant</a>
+    <a class="btn btn-primary" href="{{ path('restaurent_show', {'id': restaurent.id}) }}">back to restaurant</a>
 {% endblock %}

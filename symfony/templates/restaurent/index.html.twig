@@ -23,7 +23,7 @@
                 <td>{{ restaurent.adresse }}</td>
                 <td>{{ restaurent.telephone }}</td>
                 <td>
-                    <a href="{{ path('restaurent_show', {'id': restaurent.id}) }}">show</a>
+                    <a class="btn btn-info" href="{{ path('restaurent_show', {'id': restaurent.id}) }}">show</a>
                 </td>
             </tr>
         {% else %}
@@ -34,7 +34,7 @@
         </tbody>
     </table>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('restaurent_new', {'id': app.user.id}) }}">Créer un restaurant</a>
+        <a class="btn btn-primary" href="{{ path('restaurent_new', {'id': app.user.id}) }}">Créer un restaurant</a>
     {% endif %}
     
     

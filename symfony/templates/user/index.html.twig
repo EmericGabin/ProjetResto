@@ -25,8 +25,8 @@
                 <td>{{ app.user.prenom }}</td>
                 <td>{{ app.user.nom }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': app.user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': app.user.id}) }}">edit</a>
+                    <a class="btn btn-info" href="{{ path('user_show', {'id': app.user.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('user_edit', {'id': app.user.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -47,19 +47,19 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('user_new') }}">Create new</a>
     <br/>
     {% if app.user %}
-        <a href="{{ path('user_logout') }}">Logout</a>
+        <a class="btn btn-warning" href="{{ path('user_logout') }}">Logout</a>
     {% else %}
-        <a href="{{ path('user_login') }}">Login</a>
+        <a class="btn btn-primary" href="{{ path('user_login') }}">Login</a>
     {% endif %}
     <br/>
-    <a href="{{ path('restaurent_index')}}">Voir les restaurants</a>
+    <a class="btn btn-info" href="{{ path('restaurent_index')}}">Voir les restaurants</a>
 
     {% if is_granted('ROLE_ADMIN') %}
         <br/>
-        <a href="{{ path('restaurent_new' , {'id': app.user.id}) }}">Create restaurant</a>
+        <a class="btn btn-primary" href="{{ path('restaurent_new' , {'id': app.user.id}) }}">Create restaurant</a>
     {% endif %}
     
 {% endblock %}

@@ -6,5 +6,5 @@
     <h1>Create new Produit</h1>
 
     {{ include('produit/_form.html.twig') }}
-    <a href="{{ path('restaurent_show', {'id': restaurent.id}) }}">back</a> 
+    <a class="btn btn-primary" href="{{ path('restaurent_show', {'id': restaurent.id}) }}">back</a> 
 {% endblock %}

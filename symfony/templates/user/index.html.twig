@@ -49,12 +49,6 @@
 
     <a class="btn btn-primary" href="{{ path('user_new') }}">Create new</a>
     <br/>
-    {% if app.user %}
-        <a class="btn btn-warning" href="{{ path('user_logout') }}">Logout</a>
-    {% else %}
-        <a class="btn btn-primary" href="{{ path('user_login') }}">Login</a>
-    {% endif %}
-    <br/>
     <a class="btn btn-info" href="{{ path('restaurent_index')}}">Voir les restaurants</a>
 
     {% if is_granted('ROLE_ADMIN') %}

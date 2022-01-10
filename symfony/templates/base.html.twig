@@ -7,7 +7,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-		           and uncomment the following Encore helpers to start using Symfony UX #}
+						           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
@@ -25,12 +25,22 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('user_index')}}">Profil</a>
 							</li>
+
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('commande_index')}}">Commande</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('panier_index')}}">Panier</a>
 							</li>
+							{% if app.user %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('user_logout')}}">Déconnexion</a>
+								</li>
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('user_login')}}">Connexion</a>
+								</li>
+							{% endif %}
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									Restaurant

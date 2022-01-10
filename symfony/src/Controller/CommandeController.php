@@ -15,6 +15,7 @@ use App\Repository\ProduitRepository;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\LigneCommande;
+use App\Form\LigneCommandeType;
 
 #[Route('/commande')]
 class CommandeController extends AbstractController
@@ -74,7 +75,7 @@ class CommandeController extends AbstractController
         $entityManager->persist($commande);
         $entityManager->flush();
 
-        return $this->redirectToRoute('ligne_commande_new', ['id'=>$commande->getId()]);
+        return $this->redirectToRoute('commande_index', []);
     }
 
     #[Route('/{id}', name: 'commande_show', methods: ['GET'])]
@@ -85,7 +86,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('edit/{id}', name: 'commande_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CommandeType::class, $commande);
@@ -103,10 +104,13 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('delete/{id}', name: 'commande_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'commande_delete', methods: ['POST'])]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
+            foreach($commande->getLigneCommandes() as $ligneCommande){
+                $entityManager->remove($ligneCommande);
+            }
             $entityManager->remove($commande);
             $entityManager->flush();
         }

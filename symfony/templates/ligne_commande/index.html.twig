@@ -16,15 +16,22 @@
         </thead>
         <tbody>
         {% for ligne_commande in ligne_commandes %}
-            <tr>
-                <td>{{ ligne_commande.id }}</td>
-                <td>{{ ligne_commande.produit.id }}</td>
-                <td>{{ ligne_commande.quantite }}</td>
-                <td>
-                    <a href="{{ path('ligne_commande_show', {'id': ligne_commande.id}) }}">show</a>
-                    <a href="{{ path('ligne_commande_edit', {'id': ligne_commande.id}) }}">edit</a>
-                </td>
-            </tr>
+            {% if ligne_commande.commande.id == commande.id %}
+            
+                <tr>
+                    <td>{{ ligne_commande.id }}</td>
+                    <td>{{ ligne_commande.produit.id }}</td>
+                    <td>{{ ligne_commande.quantite }}</td>
+                    <td>
+                        <a class="btn btn-info" href="{{ path('ligne_commande_show', {'id': ligne_commande.id}) }}">show</a>
+                        <a class="btn btn-primary" href="{{ path('ligne_commande_edit', {'id': ligne_commande.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
@@ -33,5 +40,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('ligne_commande_form', {'id': commande.id}) }}">create</a>
+    <a class="btn btn-primary" href="{{ path('ligne_commande_form', {'id': commande.id}) }}">create</a>
 {% endblock %}

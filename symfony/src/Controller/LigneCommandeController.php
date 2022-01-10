@@ -131,7 +131,7 @@ class LigneCommandeController extends AbstractController
                 return $this->redirectToRoute('ligne_commande_index', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
             }
             else {
-                $total -= $ligneCommande->getPrix() * $ligneCommande->getQuantite();
+                $total -= $ligneCommande->getProduit()->getPrix() * $ligneCommande->getQuantite();
                 $commande->setPrix($total);
 
                 $entityManager->persist($commande);
